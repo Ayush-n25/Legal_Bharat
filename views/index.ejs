@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal Bharat</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <nav
+      class="shadow-sm p-3 mb-5 bg-body-tertiary rounded navbar navbar-expand-lg bg-body-tertiary"
+      style="
+        background-color: white;
+        font-size: x-large;
+        font-family: sans-serif;
+        font-weight: 600;
+      "
+    >
+      <div class="container-fluid">
+        <a
+          class="navbar-brand"
+          href="#"
+          style="
+            position: absolute;
+            left: 50%;
+            top: 15%;
+            transform: translateX(-50%);
+            font-size: xx-large;
+          "
+          >Legal Bharat</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse nav nav-underline"
+          id="navbarTogglerDemo02"
+        >
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="gap: 1rem">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <!-- <a class="nav-link" href="contact_us">Contact-Us</a> -->
+              <a class="nav-link" href="profiles">Get a Lawyer</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li> -->
+          </ul>
+          <a href="login"
+            ><button class="btn btn-outline-dark btn-lg">
+              Login/Sign-up
+            </button></a
+          >
+        </div>
+      </div>
+    </nav>
+    <div>
+      <!-- carousel starts -->
+      <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleDark"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <img
+              src="https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg?auto=compress&cs=tinysrgb&w=600"
+              class="d-block w-100"
+              style="
+                height: 30rem;
+                width: 80%;
+                padding-left: 10vw;
+                padding-right: 10vw;
+              "
+              alt="..."
+            />
+            <div class="carousel-caption d-none d-md-block bg-white rounded-3">
+              <h5 style="font-weight: 900; font-size: xx-large; color: red">
+                Find
+              </h5>
+              <p
+                style="font-weight: 700; color: black; background-color: white"
+              >
+                Find particular lawyers to fight for your case.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="2000">
+            <img
+              src="https://images.pexels.com/photos/7876051/pexels-photo-7876051.jpeg?auto=compress&cs=tinysrgb&w=600"
+              class="d-block w-100"
+              style="
+                height: 30rem;
+                width: 80%;
+                padding-left: 10vw;
+                padding-right: 10vw;
+              "
+              alt="..."
+            />
+            <div class="carousel-caption d-none d-md-block bg-white rounded-3">
+              <h5 style="font-weight: 900; font-size: xx-large; color: red">
+                Get Lawyer
+              </h5>
+              <p
+                style="font-weight: 700; color: black; background-color: white"
+              >
+                Book a lawyer to fight your case.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://images.pexels.com/photos/5668790/pexels-photo-5668790.jpeg?auto=compress&cs=tinysrgb&w=600"
+              class="d-block w-100"
+              alt="..."
+              style="
+                height: 30rem;
+                width: 80%;
+                padding-left: 10vw;
+                padding-right: 10vw;
+              "
+            />
+            <div class="carousel-caption d-none d-md-block bg-white rounded-3">
+              <h5 style="font-weight: 900; font-size: xx-large; color: red">
+                Consult
+              </h5>
+              <p
+                style="font-weight: 700; color: black; background-color: white"
+              >
+                Get consultance through video conference.
+              </p>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleDark"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <!-- carousel ends -->
+      <!-- Card begins -->
+      <div
+        class="card mb-3"
+        style="max-width: 100%; margin: 5rem; margin-left: 6rem"
+      >
+        <div class="row g-0">
+          <div class="col-md-8">
+            <img
+              src="https://images.pexels.com/photos/5669619/pexels-photo-5669619.jpeg?auto=compress&cs=tinysrgb&w=600"
+              class="img-fluid rounded-start"
+              alt="..."
+              style="padding: 2rem; height: 650px; width: 600px"
+            />
+          </div>
+          <div class="col-md-4">
+            <div class="card-body" style="padding-top: 5rem">
+              <h5
+                class="card-title"
+                style="
+                  font-family: Cambria;
+                  font-size: xx-large;
+                  font-weight: 900;
+                "
+              >
+                Welcome to Legal Bharat!
+              </h5>
+              <p class="card-text">
+                <small class="text-body-secondary" style="font-weight: 700"
+                  >Our Goal</small
+                >
+              </p>
+              <p class="card-text">
+                "Introducing a groundbreaking social platform merging
+                professionals and the public, our LinkedIn-inspired network
+                caters to both lawyers and common individuals. Lawyers can share
+                legal insights, update case statuses, and connect with peers,
+                while users can applaud legal achievements or voice concerns
+                about injustice. Our platform employs a robust demerit system to
+                deter misinformation and maintain credibility. Offering features
+                like newsletters, case studies, and specialized communities, we
+                enhance legal discourse. With built-in video consultation and a
+                chatbot, users can access legal advice seamlessly. This
+                dual-interface platform redefines legal interaction, fostering a
+                dynamic community committed to justice and transparent
+                communication."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Card ends -->
+      <!-- FAQ -->
+      <div
+        class="accordion accordion-flush"
+        id="accordionFlushExample"
+        style="
+          padding: 2rem;
+          margin: 5rem;
+          border: solid rgb(156, 156, 156) 0.1rem;
+          border-radius: 1rem;
+        "
+      >
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseOne"
+              aria-expanded="false"
+              aria-controls="flush-collapseOne"
+              style="font-weight: 700"
+            >
+              How to get Started ?
+            </button>
+          </h2>
+          <div
+            id="flush-collapseOne"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              <ul>
+                <li>
+                  First register yourself by signing in or already have an
+                  account then login to your account.
+                </li>
+                <li>
+                  Now you are good to go ! You can find lawyers of any category
+                  by going on 'Get a Lawyer' section.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#flush-collapseTwo"
+              aria-expanded="false"
+              aria-controls="flush-collapseTwo"
+              style="font-weight: 700"
+            >
+              What can you do ?
+            </button>
+          </h2>
+          <div
+            id="flush-collapseTwo"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              You can book a lawyer for video consultation or for a case to
+              fight.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FAQ ends -->
+      <!-- Footer starts -->
+      <div class="container">
+        <footer
+          class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+        >
+          <p class="col-md-4 mb-0 text-muted">© 2023 Company, Inc</p>
+
+          <a
+            href="/"
+            class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+          >
+            <svg class="bi me-2" width="40" height="32">
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+          </a>
+
+          <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-muted">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-muted">Features</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-muted">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-muted">FAQs</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link px-2 text-muted">About</a>
+            </li>
+          </ul>
+        </footer>
+      </div>
+      <!-- Footer ends -->
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
