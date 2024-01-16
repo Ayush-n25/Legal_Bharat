@@ -11,6 +11,45 @@
       crossorigin="anonymous"
     />
   </head>
+  <style>
+    body {
+    }
+
+    .card {
+      width: 400px;
+      border: none;
+      border-radius: 10px;
+
+      background-color: #fff;
+    }
+
+    .stats {
+      background: #f2f5f8 !important;
+
+      color: #000 !important;
+    }
+    .articles {
+      font-size: 10px;
+      color: #a1aab9;
+    }
+    .number1 {
+      font-weight: 500;
+    }
+    .followers {
+      font-size: 10px;
+      color: #a1aab9;
+    }
+    .number2 {
+      font-weight: 500;
+    }
+    .rating {
+      font-size: 10px;
+      color: #a1aab9;
+    }
+    .number3 {
+      font-weight: 500;
+    }
+  </style>
   <body>
     <nav
       class="shadow-sm p-3 mb-5 bg-body-tertiary rounded navbar navbar-expand-lg bg-body-tertiary"
@@ -51,7 +90,7 @@
         >
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="gap: 1rem">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Home</a>
+              <a class="nav-link" aria-current="page" href="index">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#"
@@ -60,14 +99,16 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="contact_us">Get a Lawyer</a>
+              <a class="nav-link" href="contact_us">Contact Us</a>
             </li>
             <!-- <li class="nav-item">
                 <a class="nav-link disabled" aria-disabled="true">Disabled</a>
               </li> -->
           </ul>
           <form action="/logout" method="get">
-            <button type="submit" class="btn btn-outline-dark btn-lg">Logout</button>
+            <button type="submit" class="btn btn-outline-dark btn-lg">
+              Logout
+            </button>
           </form>
         </div>
       </div>
@@ -78,103 +119,120 @@
         <ul class="nav nav-tabs">
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="workspace_page"
-              >Buy Property</a
+              >Connection Request</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Sell Property</a>
+            <a class="nav-link active" href="#">Find a Lawyer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="WS_rent">Rent Management</a>
+            <a class="nav-link" href="WS_rent">Newsletters</a>
           </li>
         </ul>
       </div>
       <!-- Link ends -->
-      <!-- crads start -->
-      <div class="row" style="padding: 5rem;padding-top: 1rem;">
-        <div class="col-md-6" >
-          <span class=""
-            >
-                <h5>Add a house for selling</h5>
-                <form action="/WS_sell" method="post">
-                    <div class="mb-3">
-                        <label for="Name_person" class="form-label">Contact Person full name</label>
-                        <input type="text" name="Name_person" id="Name_person" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="State" class="form-label">State</label>
-                        <input type="text" name="State" id="State" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="city_name" class="form-label">City Name</label>
-                        <input type="text" name="city_name" id="city_name" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="Unique_id" class="form-label">House Number and Residency name</label>
-                        <input type="text" name="Unique_id" id="Unique_id" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="Address" class="form-label">Full Address</label>
-                        <input type="text" name="Address1" id="Address1" class="form-control">
-                        <input type="text" name="Address2" id="Address2" class="form-control">
-                        <input type="text" name="Address3" id="Address3" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="size" class="form-label">Total size</label>
-                        <input type="number" name="size" id="size" class="form-control" placeholder="Square feet">
-                    </div>
-                    <div class="mb-3">
-                        <label for="additional_info" class="form-label">Additional information</label>
-                        <input type="text" name="additional_info" id="additional_info" class="form-control"   
-                        maxlength="1000" style="height: 50rem;"
-                        placeholder="Additional info">
-                    </div>
-                    <div class="mb-3">
-                      <label for="Img_url" class="form-label">Image URL:</label>
-                      <input type="text" name="Img_url" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="Price" class="form-label">Price</label>
-                        <input type="number" name="Price" id="Price" class="form-control">
-                        <div id="Price_in_rupees" class="form-text">Please enter your Price in Rupees</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="zip_code" class="form-label">Zip code</label>
-                        <input type="text" pattern="[0-9]{5}" name="zip_code" id="zip_code" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="BHK" class="form-label">BHK</label>
-                        <input type="number" name="BHK" id="BHK" class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label for="phoneNumber" class="form-label">Phone Number for contact</label>
-                        <input type="tel" name="phoneNumber" id="phoneNumber" class="form-control">
-                        <div id="phoneNumber" class="form-text">Your Phone number will be displayed to everyone.    </div>
-                    </div>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                  </form>
-            </span>
+      <!-- cards start -->
+      <div style="background-color: #b3e5fc; border-radius: 10px ; padding: 2rem;margin-top: 2rem;">
+        <div class="container mt-5 d-flex justify-content-center">
+          <div class="card p-3">
+            <div class="d-flex align-items-center">
+              <div class="image">
+                <img
+                  src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                  class="rounded"
+                  width="155"
+                />
+              </div>
+
+              <div class="ml-3 w-100">
+                <h4 class="mb-0 mt-0">Alex HMorrision</h4>
+                <span>Senior Journalist</span>
+
+                <div
+                  class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats"
+                >
+                  <div class="d-flex flex-column">
+                    <span class="articles">Articles</span>
+                    <span class="number1">38</span>
+                  </div>
+
+                  <div class="d-flex flex-column">
+                    <span class="followers">Followers</span>
+                    <span class="number2">980</span>
+                  </div>
+
+                  <div class="d-flex flex-column">
+                    <span class="rating">Rating</span>
+                    <span class="number3">8.9</span>
+                  </div>
+                </div>
+
+                <div class="button mt-2 d-flex flex-row align-items-center">
+                  <button class="btn btn-sm btn-primary w-100 ml-2">
+                    Follow
+                  </button>
+                  <button class="btn btn-sm btn-primary w-100 ml-2">
+                    Consult
+                  </button>
+                  <button class="btn btn-sm btn-primary w-100 ml-2">
+                    Book
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-6" style="padding: 5rem;padding-top: 1rem;">
-            <h5>Remove a house form selling</h5>
-            <form action="/delete_property" method="post">
-              <div class="mb-3">
-                  <label for="removeState" class="form-label">State</label>
-                  <input type="text" name="removeState" id="removeState" class="form-control" required>
+        <div class="container mt-5 d-flex justify-content-center">
+          <div class="card p-3">
+            <div class="d-flex align-items-center">
+              <div class="image">
+                <img
+                  src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                  class="rounded"
+                  width="155"
+                />
               </div>
-              <div class="mb-3">
-                  <label for="removeCity" class="form-label">City Name</label>
-                  <input type="text" name="removeCity" id="removeCity" class="form-control" required>
+
+              <div class="ml-3 w-100">
+                <h4 class="mb-0 mt-0">Alex HMorrision</h4>
+                <span>Senior Journalist</span>
+
+                <div
+                  class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats"
+                >
+                  <div class="d-flex flex-column">
+                    <span class="articles">Articles</span>
+                    <span class="number1">38</span>
+                  </div>
+
+                  <div class="d-flex flex-column">
+                    <span class="followers">Followers</span>
+                    <span class="number2">980</span>
+                  </div>
+
+                  <div class="d-flex flex-column">
+                    <span class="rating">Rating</span>
+                    <span class="number3">8.9</span>
+                  </div>
+                </div>
+
+                <div class="button mt-2 d-flex flex-row align-items-center">
+                  <button class="btn btn-sm btn-primary w-100 ml-2">
+                    Follow
+                  </button>
+                  <button class="btn btn-sm btn-primary w-100 ml-2">
+                    Consult
+                  </button>
+                  <button class="btn btn-sm btn-primary w-100 ml-2">
+                    Book
+                  </button>
+                </div>
               </div>
-              <div class="mb-3">
-                  <label for="removeUniqueID" class="form-label">House Number and Residency name</label>
-                  <input type="text" name="removeUniqueID" id="removeUniqueID" class="form-control" required>
-              </div>
-              <button type="submit" class="btn btn-danger">Remove Property</button>
-            </form>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- card end -->
+      <!-- cards ends -->
       <!-- Footer starts -->
       <div class="container">
         <footer

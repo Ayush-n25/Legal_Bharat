@@ -1,6 +1,6 @@
 const { timeStamp } = require('console');
 const mongoose =require('mongoose');
-mongoose.connect('mongodb+srv://vatsalmbhatt11:ZSGHVzED7vrSgd44@cluster0.7w44bk6.mongodb.net/?retryWrites=true&w=majority').then(()=>{
+mongoose.connect('mongodb://localhost:27017').then(()=>{
     console.log("connected to db");
 }).catch((err)=>{console.log(`DB connection error ${err}.`)});
 
