@@ -3,9 +3,10 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const port_server = 5000;
-const { user_modal, property_modal } = require("./mongoDBcon.js");
+const { user_modal, lawyer_modal } = require("./mongoDBcon.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const transportor=require('./NodeMailer.js');
 
 // cookie-parser
 app.use(cookieParser());
@@ -51,7 +52,7 @@ app.get("/login", (q, r) => {
   console.log("into login");
   try {
     if (jwt.verify(q.cookies.jwt, "your-secret-key")) {
-      r.redirect("workspace_page");
+      r.redirect("Find_lawyer");
     }
   } catch (error) {
     console.log("Coookie not found or incorrect JWT token");
@@ -64,16 +65,16 @@ app.get("/contact_us", (q, r) => {
   r.render("contact_us");
 });
 
-app.get("/profiles", (q, r) => {
-  r.render("profiles");
-});
+// get for Find_lawyer
+app.get("/Find_lawyer", async (q, r) => {
+  console.log("\t\t\tinto Find_lawyer\n\n");
+  console.log(`\t\t\t The cookie is  ${q.cookies._id} \n\n`);
 
-// get for WS_sell
-app.get("/WS_sell", async (q, r) => {
-  console.log("\t\t\tinto WS_sell\n\n");
   try {
+    const lawyers=await lawyer_modal.find({});
+    console.log(lawyers);
     await jwt.verify(q.cookies.jwt, "your-secret-key");
-    r.render("WS_sell");
+    r.render("Find_lawyer",{lawyers});
   } catch (error) {
     console.log(error);
     r.redirect("login");
@@ -86,7 +87,7 @@ app.get("/signup", (q, r) => {
 });
 
 // get for workspace
-app.get("/workspace_page", async (q, r) => {
+app.get("/connection_req", async (q, r) => {
   try {
     console.log("\t\t\tWS_page\n\n");
     console.log(q.cookies._id);
@@ -95,13 +96,13 @@ app.get("/workspace_page", async (q, r) => {
     }
     console.log(q.cookies.jwt);
     await jwt.verify(q.cookies.jwt, "your-secret-key");
-    const properties = await property_modal.find({});
-    r.render("workspace_page", { properties });
+    //const properties = await property_modal.find({});
+    r.render("connection_req", {  });
   } catch (error) {
     console.log(error);
     r.redirect("login");
   }
-  //r.render('workspace_page');
+  //r.render('connection_req');
 });
 
 // get for logout
@@ -121,25 +122,29 @@ app.get("/logout", (q, r) => {
 app.post("/login_post", async (q, r) => {
   const email_check = q.body.email;
   const pass_check = q.body.password;
-  const user = await user_modal.findOne({ email: email_check });
-
-  if (user.password === pass_check) {
-    // Create a JWT token
-    const token = await jwt.sign({ email: user.email }, "your-secret-key", {
-      expiresIn: "24h",
-    });
-    await r.cookie("jwt", token, { httpOnly: true });
-    await r.cookie("_id", email_check);
-    r.redirect("workspace_page");
-  } else {
-    console.log("\t\t\tProblem in login");
-    r.status(404);
-    r.render("login");
+  const user = await user_modal.findOne({ email_user: email_check });
+  try {
+    if (user.password === pass_check) {
+      // Create a JWT token
+      const token = await jwt.sign({ email: user.email }, "your-secret-key", {
+        expiresIn: "24h",
+      });
+      await r.cookie("jwt", token, { httpOnly: true });
+      await r.cookie("_id", email_check);
+      r.redirect("connection_req");
+    } else {
+      console.log("\t\t\tProblem in login");
+      r.status(404);
+      r.render("login");
+    }
+  } catch (err) {
+    console.log(err.message);
+    r.redirect('/login')
   }
 });
 
 // POST for signup
-app.post("/workspace_page", async (q, r) => {
+app.post("/connection_req", async (q, r) => {
   console.log("\t\t\tInto signup\n");
   //fteching data
   const email = await q.body.email;
@@ -148,53 +153,29 @@ app.post("/workspace_page", async (q, r) => {
   const pass = await q.body.password;
   console.log(email, first_name, last_name, pass);
   const res = await user_modal.insertMany({
-    first_name_user: first_name,
-    last_name_user: last_name,
+    first_user_name: first_name,
+    last_user_name: last_name,
     password: pass,
-    email: email,
+    email_user: email,
   });
   r.redirect("login");
 });
 
-// POST for deletion of property
-app.post("/delete_property", async (q, r) => {
-  console.log("\t\t\t Into the delete_property");
-  const data_for_deletion = await {
-    State: q.body.removeState,
-    City: q.body.removeCity,
-    House_number_and_residency_name: q.body.removeUniqueID,
-  };
-  try {
-    await property_modal.deleteMany({
-      State: q.body.removeState,
-      City: q.body.removeCity,
-      House_number_and_residency_name: q.body.removeUniqueID,
-    });
-    r.redirect("workspace_page");
-  } catch (error) {
-    r.status(410).redirect("WS_sell");
+// POST for nodemailer
+app.post('/sendBookEmail',(q,r)=>{
+  const { lawyerEmail, name, email, phoneNumber } = q.body;
+  const mailOptions={
+    from: 'ancloudskill@gmail.com',
+    to: lawyerEmail,
+    subject: 'Request for Booking',
+    html:`
+        <p>Hello ${name},</p>
+        <p>We from Legal Bharat are hereby dropping this mail regrading a booking request with following detail:</p>
+        <p>Name : ${name}<p>
+        <p><p>
+        <p><p>
+        `
   }
-});
-
-// POST for WS_sell
-app.post("/WS_sell", async (q, r) => {
-  // getting data from page
-  const data_from_page = await {
-    contact_person_full_name: q.body.Name_person,
-    State: q.body.State,
-    City: q.body.city_name,
-    House_number_and_residency_name: q.body.Unique_id,
-    Full_address: q.body.Address1 + q.body.Address2 + q.body.Address3,
-    Img_url: q.body.Img_url,
-    Total_size: q.body.size,
-    Additional_info: q.body.additional_info,
-    Price: q.body.Price,
-    ZIP_code: q.body.zip_code,
-    BHK: q.body.BHK,
-    phone_number_for_contact: q.body.phoneNumber,
-  };
-  await property_modal.insertMany(data_from_page);
-  r.redirect("/workspace_page");
 });
 
 // Page or resource not found

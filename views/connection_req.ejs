@@ -93,32 +93,6 @@
       <!-- crads start -->
       <div style="padding-left: 15%;padding-top: 3rem;">
         <!-- c1 -->
-        <% properties.forEach(property => { %>
-          <div class="card mb-3" style="max-width: 60rem;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="<%= property.Img_url %>" class="img-fluid rounded-start" style="padding-top: 1rem;padding-bottom: 1rem;padding-left: 1rem;" alt="..." />
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title"><%= property.House_number_and_residency_name %></h5>
-                  <p class="card-text">
-                    <ul>
-                      <li><b>Size:</b> <%= property.Total_size %> (in square feet)</li>
-                      <li>No of Bed room , hall , kitchen:<% property.BHK %></li>
-                      <li><%= property.Additional_info %></li>
-                      <li><b>Location:</b> <%= property.Full_address %></li>
-                      <li><b>Contact-info:</b> Phone Number for contact  <%= property.phone_number_for_contact %></li>
-                    </ul>
-                  </p>
-                  <p class="card-text">
-                    <small class="text-muted"><%= property.contact_person_full_name %></small>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        <% }); %>
         <!-- c1 end -->
       </div>
       <!-- card end -->
