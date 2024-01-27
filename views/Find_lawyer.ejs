@@ -10,6 +10,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   </head>
   <style>
     .card {
@@ -208,7 +209,7 @@
           // Example: You can use AJAX to send a request to your backend
           const userEmail = document.cookie._id; //.replace(/(?:(?:^|.*;\s*)userEmail\s*=\s*([^;]*).*$)|^.*$/, "$1");
           console.log(userEmail);
-          //$.post('/sendConsultEmail', { lawyerEmail, userEmail},(data)=>{alert(data)});
+          $.post('/sendConsultEmail', { lawyerEmail},(data)=>{alert(data)});
         }
 
         function sendBookEmail(lawyerEmail) {
@@ -221,7 +222,7 @@
             `Sending book email to ${lawyerEmail} and userEmail : ${userEmail}`
           );
           // Example: You can use AJAX to send a request to your backend
-          //$.post('/sendBookEmail', { lawyerEmail, userEmail},(data)=>{alert(data)});
+          $.post('/sendBookEmail', { lawyerEmail},(data)=>{alert(data)});
         }
       </script>
 

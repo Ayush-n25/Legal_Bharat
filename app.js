@@ -162,20 +162,26 @@ app.post("/connection_req", async (q, r) => {
 });
 
 // POST for nodemailer
-app.post('/sendBookEmail',(q,r)=>{
-  const { lawyerEmail, name, email, phoneNumber } = q.body;
+app.post('/sendBookEmail',async(q,r)=>{
+  const { lawyerEmail} = q.body;
+  const userEmail= q.cookies._id;
+  const data=await lawyer_modal.findOne({email:lawyerEmail});
+  const user_data=await user_modal.findOne({email_user:userEmail}).select('first_user_name last_user_name phone_number_user');
+  console.log(data.full_lawyer_name);
+  console.log(user_data.first_user_name);
   const mailOptions={
     from: 'ancloudskill@gmail.com',
     to: lawyerEmail,
     subject: 'Request for Booking',
     html:`
-        <p>Hello ${name},</p>
-        <p>We from Legal Bharat are hereby dropping this mail regrading a booking request with following detail:</p>
-        <p>Name : ${name}<p>
-        <p><p>
-        <p><p>
-        `
+    <p>Hello ${data.full_lawyer_name},</p>
+    <p>We from Legal Bharat are hereby dropping this mail regrading a booking request with following detail:</p>
+    <p>Name : ${user_data.first_user_name} ${user_data.last_user_name}<p>
+    <p>Email: ${userEmail}<p>
+    <p>Phone Number:${user_data.phone_number_user}<p>
+    `
   }
+  r.send({"Route":"sendBookEmail"});
 });
 
 // Page or resource not found
