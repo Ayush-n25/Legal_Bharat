@@ -1,12 +1,13 @@
 const nodemailer=require('nodemailer');
 
 // Initialize Nodemailer trasporter
-const transportor  = nodemailer.createTransport({
-    service:'gmail',
-    auth:{
-        user:"ancloudskill@gmail.com",
-        pass:""
+const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    auth: {
+        user: '',
+        pass: ''
     }
 });
 
-module.exports={transportor};
+module.exports={transporter};

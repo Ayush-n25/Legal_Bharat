@@ -6,7 +6,7 @@ const port_server = 5000;
 const { user_modal, lawyer_modal } = require("./mongoDBcon.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-const transportor=require('./NodeMailer.js');
+const { transporter } = require("./NodeMailer.js");
 
 // cookie-parser
 app.use(cookieParser());
@@ -71,10 +71,10 @@ app.get("/Find_lawyer", async (q, r) => {
   console.log(`\t\t\t The cookie is  ${q.cookies._id} \n\n`);
 
   try {
-    const lawyers=await lawyer_modal.find({});
+    const lawyers = await lawyer_modal.find({});
     console.log(lawyers);
     await jwt.verify(q.cookies.jwt, "your-secret-key");
-    r.render("Find_lawyer",{lawyers});
+    r.render("Find_lawyer", { lawyers });
   } catch (error) {
     console.log(error);
     r.redirect("login");
@@ -97,7 +97,7 @@ app.get("/connection_req", async (q, r) => {
     console.log(q.cookies.jwt);
     await jwt.verify(q.cookies.jwt, "your-secret-key");
     //const properties = await property_modal.find({});
-    r.render("connection_req", {  });
+    r.render("connection_req", {});
   } catch (error) {
     console.log(error);
     r.redirect("login");
@@ -139,7 +139,7 @@ app.post("/login_post", async (q, r) => {
     }
   } catch (err) {
     console.log(err.message);
-    r.redirect('/login')
+    r.redirect("/login");
   }
 });
 
@@ -161,27 +161,67 @@ app.post("/connection_req", async (q, r) => {
   r.redirect("login");
 });
 
-// POST for nodemailer
-app.post('/sendBookEmail',async(q,r)=>{
-  const { lawyerEmail} = q.body;
-  const userEmail= q.cookies._id;
-  const data=await lawyer_modal.findOne({email:lawyerEmail});
-  const user_data=await user_modal.findOne({email_user:userEmail}).select('first_user_name last_user_name phone_number_user');
-  console.log(data.full_lawyer_name);
-  console.log(user_data.first_user_name);
-  const mailOptions={
-    from: 'ancloudskill@gmail.com',
-    to: lawyerEmail,
-    subject: 'Request for Booking',
-    html:`
+// POST for nodemailer Book request
+app.post("/sendBookEmail", async (q, r) => {
+  try {
+    const { lawyerEmail } = q.body;
+    const userEmail = q.cookies._id;
+    const data = await lawyer_modal.findOne({ email: lawyerEmail });
+    const user_data = await user_modal
+      .findOne({ email_user: userEmail })
+      .select("first_user_name last_user_name phone_number_user");
+    console.log(data.full_lawyer_name);
+    console.log(user_data.first_user_name);
+    const mailOptions = {
+      from: "noemi.schowalter6@ethereal.email",
+      to: lawyerEmail,
+      subject: "Request for Booking",
+      html: `
     <p>Hello ${data.full_lawyer_name},</p>
     <p>We from Legal Bharat are hereby dropping this mail regrading a booking request with following detail:</p>
     <p>Name : ${user_data.first_user_name} ${user_data.last_user_name}<p>
     <p>Email: ${userEmail}<p>
     <p>Phone Number:${user_data.phone_number_user}<p>
-    `
+    `,
+    };
+    const resultEmail = await transporter.sendMail(mailOptions);
+    r.send('Email sent successfully');
+  } catch (error) {
+    r.send("Cannot sent mail");
   }
-  r.send({"Route":"sendBookEmail"});
+
+});
+
+// POST for nodemailer consult
+app.post("/sendConsultEmail", async (q, r) => {
+  try {
+    const { lawyerEmail } = q.body;
+    const userEmail = q.cookies._id;
+    const data = await lawyer_modal.findOne({ email: lawyerEmail });
+    const user_data = await user_modal
+      .findOne({ email_user: userEmail })
+      .select("first_user_name last_user_name phone_number_user");
+    console.log(data.full_lawyer_name);
+    console.log(user_data.first_user_name);
+    const mailOptions = {
+      from: "noemi.schowalter6@ethereal.email",
+      to: lawyerEmail,
+      subject: `Request for Consultation from ${user_data.first_user_name} ${user_data.last_user_name}`,
+      html: `
+    <p>Hello ${data.full_lawyer_name},</p>
+    <b>We from Legal Bharat are hereby dropping this mail regrading a consulting request with following detail:</b>
+    <p>Name : ${user_data.first_user_name} ${user_data.last_user_name}<p>
+    <p>Email: ${userEmail}<p>
+    <p>Phone Number:${user_data.phone_number_user}<p>
+    <b>Please contatct the requester ASAP and provide with the timming and required details for same.</b>
+    `,
+    };
+    const resultEmail = await transporter.sendMail(mailOptions);
+    r.send('Email sent successfully');
+  } catch (error) {
+    r.send("Cannot sent mail");
+  }
+  
 });
 
 // Page or resource not found

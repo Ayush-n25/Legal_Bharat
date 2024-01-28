@@ -180,8 +180,7 @@
                   </button>
                   <button
                     class="btn btn-sm btn-primary w-100 ml-2"
-                    onclick="sendConsultEmail(this)"
-                    data-email='<%= lawyer.email %>'
+                    onclick="sendConsultEmail('<%= lawyer.email %>')"
                   >
                     Consult
                   </button>
@@ -201,10 +200,10 @@
 
       <!-- Add JavaScript code to send emails when buttons are clicked -->
       <script>
-        function sendConsultEmail(button) {
+        function sendConsultEmail(lawyerEmail) {
           // Add logic to send consult email using AJAX or redirect to a backend route
           console.log(
-            `Sending consult email to "${button.getAttribute("data-email")}" `
+            `Sending consult email to "${lawyerEmail}" `
           );
           // Example: You can use AJAX to send a request to your backend
           const userEmail = document.cookie._id; //.replace(/(?:(?:^|.*;\s*)userEmail\s*=\s*([^;]*).*$)|^.*$/, "$1");
