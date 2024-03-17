@@ -141,13 +141,14 @@
       >
         <% lawyers.forEach((lawyer) => { %>
         <div class="container mt-5 d-flex justify-content-center">
-          <div class="card p-3">
+          <div class="card p-3" style="width: fit-content;">
             <div class="d-flex align-items-center">
               <div class="image">
                 <img
-                  src="<%= lawyer.profileImageUrl %>"
+                  src="<%= lawyer.pic_lawyer %>"
                   class="rounded"
-                  width="155"
+                  width="100"
+                  style="margin:1rem;"
                 />
               </div>
 
@@ -174,10 +175,10 @@
                   </div>
                 </div>
 
-                <div class="button mt-2 d-flex flex-row align-items-center">
-                  <button class="btn btn-sm btn-primary w-100 ml-2">
+                <div class="button mt-2 d-flex flex-row align-items-center" style="gap: 1rem;">
+                  <!-- <button class="btn btn-sm btn-primary w-100 ml-2">
                     Follow
-                  </button>
+                  </button> -->
                   <button
                     class="btn btn-sm btn-primary w-100 ml-2"
                     onclick="sendConsultEmail('<%= lawyer.email %>')"

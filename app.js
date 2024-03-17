@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const port_server = 5000;
-const { user_modal, lawyer_modal } = require("./mongoDBcon.js");
+const { user_modal, lawyer_modal ,Connection} = require("./mongoDBcon.js");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const { transporter } = require("./NodeMailer.js");
@@ -48,21 +48,39 @@ app.get("/index", (q, r) => {
 });
 
 // get for login
-app.get("/login", (q, r) => {
+app.get("/login",(q, r) => {
   console.log("into login");
-  try {
-    if (jwt.verify(q.cookies.jwt, "your-secret-key")) {
+  console.log(q.cookies.jwt);
+  /*try {
+    try{if (jwt.verify(q.cookies.jwt, "your-secret-key")) {
       r.redirect("Find_lawyer");
+    }}
+    catch(err){
+      console.log("auth for user failed!");
     }
+    try{
+    if(jwt.verify(q.cookies.jwt, "my-secret-key")){
+      r.redirect("lawyer_dashboard");
+    }}
+    catch(err){
+      console.log("Auth for Lawyer failed!")
+    }
+    console.log("No match for jwt")
   } catch (error) {
+    console.log(error)
     console.log("Coookie not found or incorrect JWT token");
-    r.render("login");
-  }
+  }*/
+  r.render("login");
 });
 
 // get for contact_us
 app.get("/contact_us", (q, r) => {
   r.render("contact_us");
+});
+
+// get for signup_lawyer
+app.get("/signup_lawyer", (q, r) => {
+  r.render("signup_lawyer");
 });
 
 // get for Find_lawyer
@@ -143,6 +161,75 @@ app.post("/login_post", async (q, r) => {
   }
 });
 
+// POST for Lawyer Login
+app.post("/login_post_lawyer", async (q, r) => {
+  try{
+    //jwt.verify(q.cookies.jwt, "my-secret-key");
+    //r.render("lawyer_dashboard",{});
+  }
+  catch(error){
+
+  }
+  try {
+    const pass_lawyer = q.body.password_lawyer;
+    const email_lawyer = q.body.email_lawyer;
+    const lawyer_check = await lawyer_modal.findOne({ email: email_lawyer });
+    console.log(lawyer_check.password, "\t", pass_lawyer);
+    if (lawyer_check.password == pass_lawyer) {
+      const token = await jwt.sign({ email: email_lawyer }, "my-secret-key", {
+        expiresIn: "24h",
+      });
+      await r.cookie("jwt", token, { httpOnly: true });
+      await r.cookie("_id", email_lawyer);
+      r.redirect("/lawyer_dashboard");
+    } else {
+      console.log("\t\t\tProblem in login Lawyer");
+      //r.status(404);
+      r.render("login");
+    }
+  } catch(err) {
+    console.log(err.message);
+    r.redirect("/login_post_lawyer");
+  }
+});
+
+//GET for lawyer dashboard
+app.get("/lawyer_dashboard",async (q, r) => {
+  try {
+    console.log("\t\t\tWS_page\n\n");
+    console.log(q.cookies._id);
+    if (q.cookies && q.cookies.jwt) {
+      console.log("Cookies:", q.cookies.jwt);
+    }
+    console.log(q.cookies.jwt);
+    await jwt.verify(q.cookies.jwt, "my-secret-key");
+    //const properties = await property_modal.find({});
+    r.render("lawyer_dashboard", {});
+  } catch (error) {
+    console.log(error);
+    r.redirect("login");
+  }
+});
+
+app.get('/WS_rent',async(q,r)=>{
+  console.log("into WS_rent")
+  try {
+    console.log("\t\t\tWS_page\n\n");
+    console.log(q.cookies._id);
+    if (q.cookies && q.cookies.jwt) {
+      console.log("Cookies:", q.cookies.jwt);
+    }
+    console.log(q.cookies.jwt);
+    await jwt.verify(q.cookies.jwt, "your-secret-key");
+    //const properties = await property_modal.find({});
+    const lawyers= await lawyer_modal.find({});
+    r.render("newsletters", {lawyers});
+  } catch (error) {
+    console.log(error);
+    r.redirect("login");
+  }
+});
+
 // POST for signup
 app.post("/connection_req", async (q, r) => {
   console.log("\t\t\tInto signup\n");
@@ -185,11 +272,10 @@ app.post("/sendBookEmail", async (q, r) => {
     `,
     };
     const resultEmail = await transporter.sendMail(mailOptions);
-    r.send('Email sent successfully');
+    r.send("Email sent successfully");
   } catch (error) {
     r.send("Cannot sent mail");
   }
-
 });
 
 // POST for nodemailer consult
@@ -217,14 +303,21 @@ app.post("/sendConsultEmail", async (q, r) => {
     `,
     };
     const resultEmail = await transporter.sendMail(mailOptions);
-    r.send('Email sent successfully');
+    r.send("Email sent successfully");
   } catch (error) {
     r.send("Cannot sent mail");
   }
+});
+
+
+
+//for testing only
+app.get("/test", async(q, r) => {
   
+  r.send("test Route");
 });
 
 // Page or resource not found
 app.get("*", (q, r) => {
-  r.status(404).send("<h1>404 Not Found</h1>");
+  r.status(404).send(`<h1>404 Not Found</h1>`);
 });

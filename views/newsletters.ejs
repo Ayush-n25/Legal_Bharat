@@ -1,9 +1,6 @@
-<!-- index.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Head content goes here -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Legal Bharat</title>
@@ -13,7 +10,44 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   </head>
+  <style>
+    .card {
+      width: 400px;
+      border: none;
+      border-radius: 10px;
+
+      background-color: #fff;
+    }
+
+    .stats {
+      background: #f2f5f8 !important;
+
+      color: #000 !important;
+    }
+    .articles {
+      font-size: 10px;
+      color: #a1aab9;
+    }
+    .number1 {
+      font-weight: 500;
+    }
+    .followers {
+      font-size: 10px;
+      color: #a1aab9;
+    }
+    .number2 {
+      font-weight: 500;
+    }
+    .rating {
+      font-size: 10px;
+      color: #a1aab9;
+    }
+    .number3 {
+      font-weight: 500;
+    }
+  </style>
   <body>
     <nav
       class="shadow-sm p-3 mb-5 bg-body-tertiary rounded navbar navbar-expand-lg bg-body-tertiary"
@@ -54,7 +88,7 @@
         >
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="gap: 1rem">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/">Home</a>
+              <a class="nav-link" aria-current="page" href="index">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#"
@@ -65,9 +99,14 @@
             <li class="nav-item">
               <a class="nav-link" href="contact_us">Contact Us</a>
             </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li> -->
           </ul>
           <form action="/logout" method="get">
-            <button type="submit" class="btn btn-outline-dark btn-lg">Logout</button>
+            <button type="submit" class="btn btn-outline-dark btn-lg">
+              Logout
+            </button>
           </form>
         </div>
       </div>
@@ -77,57 +116,68 @@
       <div>
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#"
-              >Connetion Request</a
+            <a class="nav-link" aria-current="page" href="connection_req"
+              >Connection Request</a
             >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Find_lawyer">Find a Lawyer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="WS_rent">Newsletters</a>
+            <a class="nav-link active" href="#">Newsletters</a>
           </li>
         </ul>
       </div>
       <!-- Link ends -->
-      <!-- crads start -->
-      <div style="padding-left: 15%;padding-top: 3rem;">
-        <!-- c1 -->
-        <% properties.forEach(property => { %>
-          <div class="card mb-3" style="max-width: 60rem;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="<%= property.Img_url %>" class="img-fluid rounded-start" style="padding-top: 1rem;padding-bottom: 1rem;padding-left: 1rem;" alt="..." />
+      <!-- cards start -->
+      <!-- Your EJS Code for Lawyer Cards -->
+      <div
+        style="
+          background-color: #b3e5fc;
+          border-radius: 10px;
+          padding: 2rem;
+          margin-top: 2rem;
+        "
+      >
+        <% lawyers.forEach((lawyer) => { %>
+        <div class="container mt-5 d-flex justify-content-center">
+          <div class="card p-3" style="width: fit-content">
+            <div class="d-flex align-items-center">
+              <div class="image">
+                <img
+                  src="<%= lawyer.pic_lawyer %>"
+                  class="rounded"
+                  width="100"
+                  style="margin: 1rem"
+                />
               </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title"><%= property.House_number_and_residency_name %></h5>
-                  <p class="card-text">
-                    <ul>
-                      <li><b>Size:</b> <%= property.Total_size %> (in square feet)</li>
-                      <li>No of Bed room , hall , kitchen:<% property.BHK %></li>
-                      <li><%= property.Additional_info %></li>
-                      <li><b>Location:</b> <%= property.Full_address %></li>
-                      <li><b>Contact-info:</b> Phone Number for contact  <%= property.phone_number_for_contact %></li>
-                    </ul>
-                  </p>
-                  <p class="card-text">
-                    <small class="text-muted"><%= property.contact_person_full_name %></small>
-                  </p>
+
+              <div class="ml-3 w-100">
+                <h4 class="mb-0 mt-0"><%= lawyer.full_lawyer_name %></h4>
+                <span><%= lawyer.email %></span>
+                <div
+                class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats"
+                >
+                <h6><a href="<%= lawyer.nl %>" target="_blank">Newsletters</a></h6>
                 </div>
               </div>
             </div>
           </div>
+        </div>
         <% }); %>
-        <!-- c1 end -->
       </div>
-      <!-- card end -->
+
+      <!-- Add JavaScript code to send emails when buttons are clicked -->
+      
+
+      <!-- cards ends -->
       <!-- Footer starts -->
       <div class="container">
         <footer
           class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
         >
           <p class="col-md-4 mb-0 text-muted">© 2023 Company, Inc</p>
+
           <a
             href="/"
             class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
@@ -136,6 +186,7 @@
               <use xlink:href="#bootstrap"></use>
             </svg>
           </a>
+
           <ul class="nav col-md-4 justify-content-end">
             <li class="nav-item">
               <a href="#" class="nav-link px-2 text-muted">Home</a>

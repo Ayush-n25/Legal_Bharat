@@ -65,6 +65,11 @@ const lawyer_schema=new mongoose.Schema({
     malpracticeInsuranceProof: {
         type: Schema.Types.ObjectId,
         ref: 'file' 
+    },
+    nl:{
+        type:String,
+        min:7,
+        max:50
     }
 });
 
@@ -110,8 +115,36 @@ const users_schema=new mongoose.Schema({
     }
 });
 
+// Connection schema
+const connectionSchema = new mongoose.Schema({
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user_collection', // Reference to the user model
+      required: true
+    },
+    connection: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'lawyer_collection', // Reference to the lawyer model
+      required: true
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'accepted', 'rejected'],
+      default: 'pending'
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  });
+  
+  // Connection model
+  const Connection = mongoose.model('Connection', connectionSchema);
+  
+
+
 // modal creation for CRUD operation on DB
 const lawyer_modal=mongoose.model('lawyer_collection',lawyer_schema);
 const user_modal=mongoose.model('user_collection',users_schema);
 
-module.exports={user_modal,lawyer_modal};
+module.exports={user_modal,lawyer_modal,Connection};
