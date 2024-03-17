@@ -136,6 +136,19 @@ app.get("/logout", (q, r) => {
   });
 });
 
+// get for logout
+app.get("/logout_lawyer", (q, r) => {
+  q.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      r.status(500).send("Internal Server Error");
+    } else {
+      r.clearCookie("jwt");
+      r.redirect("/");
+    }
+  });
+});
+
 // POST for Login
 app.post("/login_post", async (q, r) => {
   const email_check = q.body.email;
@@ -160,6 +173,37 @@ app.post("/login_post", async (q, r) => {
     r.redirect("/login");
   }
 });
+
+//POST for Signup Lawyer
+app.post("/sign_up_lawyer",async(q,r)=>{
+  const Fname=q.body.first_name;
+  const Mname=q.body.middle_name;
+  const Lname=q.body.last_name;
+
+  const full_lawyer_name=Fname+" "+Mname+" "+Lname;
+  const State_lawyer=q.body.State;
+  const City_lawyer=q.body.City;
+  const Full_address_lawyer=q.body.Address_lawyer;
+  const pic_lawyer=q.body.url_lawyer;
+  const phone_number_lawyer=q.body.Phonenumber_lawyer;
+  const email=q.body.email;
+  const nl=q.body.newsletters;
+  const password=q.body.password;
+  const res = await lawyer_modal.insertMany({
+    full_lawyer_name:full_lawyer_name,
+    State_lawyer:State_lawyer,
+    City_lawyer:City_lawyer,
+    Full_address_lawyer:Full_address_lawyer,
+    pic_lawyer:pic_lawyer,
+    phone_number_lawyer:phone_number_lawyer,
+    email:email,
+    password:password,
+    nl:nl
+  });
+  console.log(res);
+  r.redirect("login");
+
+})
 
 // POST for Lawyer Login
 app.post("/login_post_lawyer", async (q, r) => {
@@ -189,7 +233,7 @@ app.post("/login_post_lawyer", async (q, r) => {
     }
   } catch(err) {
     console.log(err.message);
-    r.redirect("/login_post_lawyer");
+    r.redirect("/login");
   }
 });
 
@@ -204,7 +248,7 @@ app.get("/lawyer_dashboard",async (q, r) => {
     console.log(q.cookies.jwt);
     await jwt.verify(q.cookies.jwt, "my-secret-key");
     //const properties = await property_modal.find({});
-    r.render("lawyer_dashboard", {});
+    r.render("dashboard", {});
   } catch (error) {
     console.log(error);
     r.redirect("login");

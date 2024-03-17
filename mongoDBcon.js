@@ -89,7 +89,6 @@ const users_schema=new mongoose.Schema({
     },
     State:{
         type:String,
-        unique:true
     },
     Full_address:{
         type:String
@@ -101,10 +100,6 @@ const users_schema=new mongoose.Schema({
     email_user:{
         type:String,
         required: true,
-        unique:true
-    },
-    phone_number_user:{
-        type:String,
         unique:true
     },
     password:{
