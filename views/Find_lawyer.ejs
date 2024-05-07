@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Legal Bharat-NewsLetters</title>
+    <title>Legal Bharat-Find Lawyer</title>
     <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -122,10 +122,10 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="Find_lawyer">Find a Lawyer</a>
+            <a class="nav-link active" href="#">Find a Lawyer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">Newsletters</a>
+            <a class="nav-link" href="WS_rent">Newsletters</a>
           </li>
         </ul>
       </div>
@@ -142,24 +142,56 @@
       >
         <% lawyers.forEach((lawyer) => { %>
         <div class="container mt-5 d-flex justify-content-center">
-          <div class="card p-3" style="width: fit-content">
+          <div class="card p-3" style="width: fit-content;">
             <div class="d-flex align-items-center">
               <div class="image">
                 <img
                   src="<%= lawyer.pic_lawyer %>"
                   class="rounded"
                   width="100"
-                  style="margin: 1rem"
+                  style="margin:1rem;"
                 />
               </div>
 
               <div class="ml-3 w-100">
                 <h4 class="mb-0 mt-0"><%= lawyer.full_lawyer_name %></h4>
                 <span><%= lawyer.email %></span>
-                <div
-                class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats"
+
+                <!-- <div
+                  class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats"
                 >
-                <h6><a href="<%= lawyer.nl %>" target="_blank">Newsletters</a></h6>
+                  <div class="d-flex flex-column">
+                    <span class="articles">Articles</span>
+                    <span class="number1">0</span>
+                  </div>
+
+                  <div class="d-flex flex-column">
+                    <span class="followers">Followers</span>
+                    <span class="number2">0</span>
+                  </div>
+
+                  <div class="d-flex flex-column">
+                    <span class="rating">Rating</span>
+                    <span class="number3">-</span>
+                  </div>
+                </div> -->
+
+                <div class="button mt-2 d-flex flex-row align-items-center" style="gap: 1rem;">
+                  <!-- <button class="btn btn-sm btn-primary w-100 ml-2">
+                    Follow
+                  </button> -->
+                  <button
+                    class="btn btn-sm btn-primary w-100 ml-2"
+                    onclick="sendConsultEmail('<%= lawyer.email %>')"
+                  >
+                    Consult
+                  </button>
+                  <button
+                    class="btn btn-sm btn-primary w-100 ml-2"
+                    onclick="sendBookEmail('<%= lawyer.email %>')"
+                  >
+                    Book
+                  </button>
                 </div>
               </div>
             </div>
@@ -169,7 +201,31 @@
       </div>
 
       <!-- Add JavaScript code to send emails when buttons are clicked -->
-      
+      <script>
+        function sendConsultEmail(lawyerEmail) {
+          // Add logic to send consult email using AJAX or redirect to a backend route
+          console.log(
+            `Sending consult email to "${lawyerEmail}" `
+          );
+          // Example: You can use AJAX to send a request to your backend
+          const userEmail = document.cookie._id; //.replace(/(?:(?:^|.*;\s*)userEmail\s*=\s*([^;]*).*$)|^.*$/, "$1");
+          console.log(userEmail);
+          $.post('/sendConsultEmail', { lawyerEmail},(data)=>{alert(data)});
+        }
+
+        function sendBookEmail(lawyerEmail) {
+          // Add logic to send book email using AJAX or redirect to a backend route
+          const userEmail = document.cookie.replace(
+            /(?:(?:^|.*;\s*)userEmail\s*=\s*([^;]*).*$)|^.*$/,
+            "$1"
+          );
+          console.log(
+            `Sending book email to ${lawyerEmail} and userEmail : ${userEmail}`
+          );
+          // Example: You can use AJAX to send a request to your backend
+          $.post('/sendBookEmail', { lawyerEmail},(data)=>{alert(data)});
+        }
+      </script>
 
       <!-- cards ends -->
       <!-- Footer starts -->
