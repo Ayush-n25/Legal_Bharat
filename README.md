@@ -46,4 +46,4 @@ Make sure you have mongodb and node js along with all required dependencies.
 nodemon app.js
 ```
 ## Screenshot
-![Home Page]()
+![Home Page](Home_page.jpg)
